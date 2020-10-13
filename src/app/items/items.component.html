@@ -1,0 +1,102 @@
+<header class="border-bottom shadow-sm">
+    <nav class="navbar navbar-light bg-white ">
+        <div class="navbar-brand mb-0 h1"> {{brandId ? brandName :"Select Brands"}}</div>
+    </nav>
+</header>
+
+
+
+
+<div *ngFor="let x of brand" class="mb-3 " [hidden]="brandId" (click)="onSelectBrand(x);">
+    <img src="https://dummyimage.com/600x200/f4f4f4/333333&text={{x.name}}" class="border shadow-sm" width="100%">
+    <div class="px-2">{{x.name}}</div>
+</div>
+
+
+
+
+<div class="container-fluid  " [hidden]="!brandId">
+
+    <div class="row" [hidden]="items.length > 0">
+        <div class="col-12 text-center">
+            <div class="alert alert-warning m-5">
+                There is no product yet...
+                <div>
+                    <a href="javascript:;" (click)="brandId=null">Select other brands</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row no-gutters">
+    
+        <div class="col-6 mb-2" *ngFor="let x of items" (click)="open(modalItemDetail,x)">
+            <div class="p-1">
+                <img src="https://dummyimage.com/600x400/f4f4f4/333333&text={{x.name}}" class="border shadow-sm" width="100%">
+                <div><strong>{{x.name}}</strong></div>
+                <div>Start {{currency}} {{x.price[0].price | number}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="mb-6 "></div>
+<div class="cartFloat" [hidden]="total < 1" [routerLink]="[ '/items/cart']">
+    <div class="mx-2 p-2 bg-success text-white rounded shadow-sm">
+        <div class="row">
+            <div class="col"><strong>TOTAL ORDER</strong></div>
+            <div class="col text-right"> <strong> {{currency}} {{total | number}} </strong> </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<ng-template #modalItemDetail let-modal>
+    <div class="modal-header bg-white">
+        <h4 class="modal-title">{{itemsDetail.name}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <img src="https://dummyimage.com/600x400/f3f3f3/333333&text={{itemsDetail.name}}" width="100%">
+
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <small>Size</small>
+            </div>
+            <div class="col-3 text-center">
+                <small>Qty</small>
+            </div>
+        </div>
+
+        <div class="row no-gutters " *ngFor="let x of itemsDetail.price; let i = index">
+            <div class="col-9 border-bottom py-2">
+                <div>{{x.name}} </div>
+                <b>{{currency}} {{x.price | number}}</b> &nbsp; <a href="javascript:;" (click)="addNote()"><small class="ml-2">Add Notes</small></a>
+            </div>
+            <div class="col-3 border-bottom py-2">
+                <input type="number" [(ngModel)]="x.cart" class="form-control" required>
+            </div>
+            <div class="col-12 d-none">
+                <textarea class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <button type="button" class="btn btn-success btn-block" (click)="addToCart();">Add To Card</button>
+    </div>
+</ng-template>
+
+
+
+<app-tabs></app-tabs>
