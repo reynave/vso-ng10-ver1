@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from '../service/config.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-items',
@@ -33,6 +34,7 @@ export class ItemsComponent implements OnInit {
 
   itemsDetail: any = [];
   constructor(
+    private spinner: NgxSpinnerService,
     private modalService: NgbModal,
     private http: HttpClient,
     private configService: ConfigService,
@@ -45,10 +47,11 @@ export class ItemsComponent implements OnInit {
 
 
   httpGet() {
+    this.spinner.show();
     this.http.get<any>(environment.api + 'item/', {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
+      this.spinner.hide();
       this.brand = data['brand']; 
       this.items = data['items'];   
  
@@ -59,7 +62,7 @@ export class ItemsComponent implements OnInit {
  
 
   httpCart() { 
-    this.loading = "Update...";
+    this.loading = "Loading...";
     this.http.get<any>(environment.api + 'cart/', {
       headers: this.configService.headers()
     }).subscribe(data => {
@@ -79,7 +82,23 @@ export class ItemsComponent implements OnInit {
     })
   }
 
-
+  clearCart(brandId){ 
+    const body = {
+      brandId : brandId,
+    }
+    this.brandId=null;
+    this.total = 0;
+    this.http.post<any>(environment.api + "cart/clearCart",body, {
+      headers: this.configService.headers()
+    }).subscribe(
+      data=>{
+        console.log(data);
+      },
+      error=>{
+        console.log(error);
+      }
+    );
+  }
   open(content, obj) { 
     this.itemsDetail = obj;
     this.modalService.open(content, { size: 'xl' });

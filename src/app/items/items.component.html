@@ -1,9 +1,13 @@
+<ngx-spinner></ngx-spinner>
+
 <header class="border-bottom shadow-sm">
     <nav class="navbar navbar-light bg-white ">
-        <div class="navbar-brand mb-0 h1"> {{brandId ? brandName :"Select Brands"}}</div>
+        <div class="navbar-brand mb-0 h1">
+            <span>{{brandId ? brandName :"Select Brands"}}</span>
+            <div class="navbar-left" [hidden]="!brandId" (click)="clearCart(brandId);"><img src="./assets/icon/arrow-left.svg"></div>
+        </div>
     </nav>
 </header>
-
 
 
 
@@ -17,9 +21,10 @@
 
 <div class="container-fluid  " [hidden]="!brandId">
 
-    <div class="row" [hidden]="items.length > 0">
-        <div class="col-12 text-center">
-            <div class="alert alert-warning m-5">
+    <div [hidden]="items.length > 0">
+
+        <div class="text-center ">
+            <div class="alert">
                 There is no product yet...
                 <div>
                     <a href="javascript:;" (click)="brandId=null">Select other brands</a>
@@ -29,8 +34,12 @@
     </div>
 
 
+
+
+
+
     <div class="row no-gutters">
-    
+
         <div class="col-6 mb-2" *ngFor="let x of items" (click)="open(modalItemDetail,x)">
             <div class="p-1">
                 <img src="https://dummyimage.com/600x400/f4f4f4/333333&text={{x.name}}" class="border shadow-sm" width="100%">
@@ -47,7 +56,7 @@
     <div class="mx-2 p-2 bg-success text-white rounded shadow-sm">
         <div class="row">
             <div class="col"><strong>TOTAL ORDER</strong></div>
-            <div class="col text-right"> <strong> {{currency}} {{total | number}} </strong> </div>
+            <div class="col text-right"> {{ loading}} <strong> {{currency}} {{total | number}} </strong> </div>
         </div>
     </div>
 </div>

@@ -63,7 +63,16 @@ header {
     margin-top: 63px;
 }
 
+.pointer{
+    cursor: pointer;
+}
 
+.cut-text { 
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: 100%; 
+    white-space: nowrap;
+  }
 
 @media (min-width: 576px){
     .modal-dialog {
@@ -74,9 +83,16 @@ header {
 }
 
 .navbar-brand {
+    position: relative;
     display: block;
     text-align: center !important;
     width: 100%;
+}
+
+.navbar-brand .navbar-left{
+    position: absolute;
+    left: 0px;
+    top: 3px;
 }
 
 .cartFloat {

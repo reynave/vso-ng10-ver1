@@ -6,20 +6,18 @@ import { ConfigService } from '../service/config.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'app-transaction',
-  templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.css']
+  selector: 'app-weekly-performance',
+  templateUrl: './weekly-performance.component.html',
+  styleUrls: ['./weekly-performance.component.css']
 })
-export class TransactionComponent implements OnInit {
-
+export class WeeklyPerformanceComponent implements OnInit {
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
     console.log('Back button pressed');
     this.modalService.dismissAll();
   }
 
-  transaction: any = [];
-
+  weekly : any = [];
   constructor(
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
@@ -30,26 +28,18 @@ export class TransactionComponent implements OnInit {
   ngOnInit(): void {
     this.httpGet();
   }
-
-
   httpGet() {
     this.spinner.show();
-    this.http.get<any>(environment.api + 'transaction/', {
+    this.http.get<any>(environment.api + 'performance/', {
       headers: this.configService.headers()
     }).subscribe(data => {
       this.spinner.hide();  
-      this.transaction = data['transaction'];
+      console.log(data);
+      this.weekly = data['weekly'];
  
     }, error => {
       console.log(error);
     })
-  }
-
-  item : any = [];
-  open(content,obj) {
-    this.item = obj;
-    console.log(this.item);
-    this.modalService.open(content);
   }
 
 }

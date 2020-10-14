@@ -18,6 +18,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { TabsComponent } from './global/tabs/tabs.component';
 import { HeaderComponent } from './global/header/header.component'; 
 import { ItemsCartComponent } from './items/items-cart/items-cart.component';
+import { WeeklyPerformanceComponent } from './weekly-performance/weekly-performance.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ItemsCartComponent } from './items/items-cart/items-cart.component';
     NotfoundComponent,
     TabsComponent,
     HeaderComponent, 
-    ItemsCartComponent
+    ItemsCartComponent, WeeklyPerformanceComponent
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,19 @@
-<app-header></app-header>
+<app-header title="Profile"></app-header>
 
 
 <div class="container-fluid">
-    profile page
-
+    
     <div>
-        <button type="button" (click)="logout()" class="btn">Log Out</button>
+        <ul class="list-group list-group-flush"> 
+            <li class="list-group-item"> <img src="./assets/icon/edit.svg" width="20"  >  Edit Profile</li>
+            <li class="list-group-item"> <img src="./assets/icon/file-text.svg" width="20"  >  Changes Password</li>  
+            <li class="list-group-item">
+                <a href="javascript:;" (click)="logout()"> <img src="./assets/icon/log-out.svg" width="20"  >   Logout</a>
+            </li>
+          </ul>
     </div>
+
+    
 </div>
 
 <app-tabs></app-tabs>

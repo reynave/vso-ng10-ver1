@@ -31,6 +31,7 @@ export class ItemsCartComponent implements OnInit {
   selectBranches: any = [];
   items: any = [];
   loading: string;
+  transaction: any;
   transactionCode: string;
   code: string;
   currency: string = "Rp ";
@@ -39,10 +40,10 @@ export class ItemsCartComponent implements OnInit {
   itemDetail: any = [];
   customer: any = {
     phone: "",
-    name:  "",
-    address:  "",
-    email:  "",
-  }; 
+    name: "",
+    address: "",
+    email: "",
+  };
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -58,37 +59,42 @@ export class ItemsCartComponent implements OnInit {
   }
 
   httpCart() {
-    this.loading = "Update...";
+    this.spinner.show();
     this.http.get<any>(environment.api + 'cart/', {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
-      this.customer = data['customer'];
-      this.loading = null;
-      this.total = data['total'];
-      this.cart = data['cart'];
+      this.spinner.hide();
       this.selectBranches = data['branches'];
-      this.branchesId = data['transaction']['branchesId'];
-      this.transactionCode = data['transactionCode'];
-      if (this.customer === null || this.customer == "") {
-        this.editCustomer = true;
-        this.customer = new Customer(null, null,null,null);
-      } else {
-        this.customer = new Customer(this.customer['phone'], this.customer['name'], this.customer['address'], this.customer['email']);
-      }
+      this.updateArray(data);
     }, error => {
       console.log(error);
     })
   }
 
- 
+  updateArray(data){
+    this.customer = data['customer'];
+    this.transaction = data['transaction'];
+    this.loading = null;
+    this.total = data['total'];
+    this.cart = data['cart'];
+  
+    this.branchesId = data['transaction']['branchesId'];
+    this.transactionCode = data['transactionCode'];
+    if (this.customer === null || this.customer == "") {
+      this.editCustomer = true;
+      this.customer = new Customer(null, null, null, null);
+    } else {
+      this.customer = new Customer(this.customer['phone'], this.customer['name'], this.customer['address'], this.customer['email']);
+    }
+  }
 
   updateBranches() {
     this.http.post<any>(environment.api + "cart/updateBranches/", this.branchesId, {
       headers: this.configService.headers()
     }).subscribe(
-      () => {
-
+      (data) => {
+        console.log(data); 
+        this.updateArray(data);
       },
       error => {
         console.log(error);
@@ -103,6 +109,7 @@ export class ItemsCartComponent implements OnInit {
       data => {
         this.editCustomer = false;
         console.log(data);
+        this.updateArray(data);
       },
       error => {
         console.log(error);
@@ -115,23 +122,29 @@ export class ItemsCartComponent implements OnInit {
   }
 
   onSubmit() {
-    this.spinner.show();
-    console.log(this.transactionCode)
-    const body = {
-      transactionCode : this.transactionCode 
-    }
-    this.http.post<any>(environment.api + "cart/onSubmit/", body, {
-      headers: this.configService.headers()
-    }).subscribe(
-      data => {
-        console.log(data);
-        this.spinner.hide(); 
-        this.router.navigate(['transcation']); 
-      },
-      error => {
-        console.log(error);
+
+    if (this.transaction['branchesId'] === null) {
+      alert("Please select outlet location!");
+    } else { 
+
+      this.spinner.show();
+      console.log(this.transactionCode)
+      const body = {
+        transactionCode: this.transactionCode
       }
-    );
+      this.http.post<any>(environment.api + "cart/onSubmit/", body, {
+        headers: this.configService.headers()
+      }).subscribe(
+        data => {
+          console.log(data);
+          this.spinner.hide();
+          this.router.navigate(['transcation']);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
 
   }
 
@@ -149,6 +162,7 @@ export class ItemsCartComponent implements OnInit {
         if (data['name'] !== null) this.customer['name'] = data['name'];
         if (data['address'] !== null) this.customer['address'] = data['address'];
         if (data['email'] !== null) this.customer['email'] = data['email'];
+     
       },
       error => {
         console.log(error);
@@ -194,5 +208,6 @@ export class ItemsCartComponent implements OnInit {
   }
 
 
+  
 
 }

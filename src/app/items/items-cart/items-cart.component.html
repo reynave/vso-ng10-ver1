@@ -92,7 +92,7 @@
 <div class="container-fluid mb-3">
     <div class="row">
         <div class="col-12">
-            <select class="form-control my-2" [(ngModel)]="branchesId" (change)="updateBranches();">
+            <select class="form-control my-2" required [(ngModel)]="branchesId" (change)="updateBranches();">
                 <option *ngFor="let x of selectBranches" [value]="x.id">{{x.location}}</option>
             </select>
         </div>
@@ -132,9 +132,9 @@
 
 
 
-<div class="footer bg-white border-top">
+<div class="footer bg-white border-top"  >
 
-    <div class="row" [hidden]="editCustomer">
+    <div class="row" [hidden]="editCustomer || total <1">
         <div class="col-12">
             <div class="container">
                 <div class="row">
@@ -145,6 +145,15 @@
         </div>
         <div class="col py-2 text-center mx-2">
             <button type="button" (click)="onSubmit();" class="btn btn-success btn-block">PROCCESS NOW </button>
+        </div>
+    </div>
+
+
+    <div class="row" [hidden]="total > 0">
+     
+        <div class="col py-2 text-center mx-2">
+          
+            <button type="button" (click)="back();" class="btn btn-light border btn-block">BACK</button>
         </div>
     </div>
 </div>

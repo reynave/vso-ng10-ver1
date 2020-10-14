@@ -8,6 +8,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { AuthGuard } from './guard/auth.guard';
+import { WeeklyPerformanceComponent } from './weekly-performance/weekly-performance.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'items', component: ItemsComponent,  canActivate: [AuthGuard]  }, 
   { path: 'items/cart', component: ItemsCartComponent ,  canActivate: [AuthGuard] },
   
+  { path: 'weeklyperformance', component: WeeklyPerformanceComponent,  canActivate: [AuthGuard]  },
   { path: 'transcation', component: TransactionComponent,  canActivate: [AuthGuard]  },
   { path: 'login', component: LoginComponent,  canActivate: [AuthGuard]  },
   { path: 'bank', component: BankComponent,  canActivate: [AuthGuard]  }, 

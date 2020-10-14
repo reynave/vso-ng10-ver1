@@ -1,0 +1,18 @@
+<app-header title="Weekly Performance"></app-header>
+
+<div class="p-2 bg-light">
+    <small>History report  in 1 year</small>
+</div>
+<table class="table">
+    <tbody>
+        <tr *ngFor="let x of weekly">
+            <td class="line-height-sm">
+                <div> Week {{x.weekly}}  <span [hidden]="!x.paid" class="badge badge-primary">PAID {{x.inputDate | date}} </span> </div>
+                <div><small>Total Order {{x.qty}} Cup = Rp {{x.price | number}}</small> </div>
+            </td>
+            <td class="text-right line-height-sm"> {{x.paid | number}}</td>
+        </tr> 
+    </tbody>
+</table>
+
+<app-tabs></app-tabs>

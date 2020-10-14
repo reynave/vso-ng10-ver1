@@ -20,7 +20,9 @@ export class Login {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  login :any  = new Login(null, null);
+ // login :any  = new Login(null, null);
+  login :any  = new Login("123456789", "123456789");
+ 
   note: any;
   constructor(
     private spinner: NgxSpinnerService,
