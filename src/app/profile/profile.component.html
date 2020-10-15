@@ -1,19 +1,140 @@
+<ngx-spinner></ngx-spinner>
+
 <app-header title="Profile"></app-header>
 
-
 <div class="container-fluid">
-    
+
     <div>
-        <ul class="list-group list-group-flush"> 
-            <li class="list-group-item"> <img src="./assets/icon/edit.svg" width="20"  >  Edit Profile</li>
-            <li class="list-group-item"> <img src="./assets/icon/file-text.svg" width="20"  >  Changes Password</li>  
-            <li class="list-group-item">
-                <a href="javascript:;" (click)="logout()"> <img src="./assets/icon/log-out.svg" width="20"  >   Logout</a>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item pointer" (click)="open(profileModal)"> <img src="./assets/icon/edit.svg" width="20"> Edit Profile </li>
+            <li class="list-group-item pointer" (click)="open(passwordModal)"> <img src="./assets/icon/file-text.svg" width="20"> Changes Password</li>
+            <li class="list-group-item pointer" (click)="logout()">
+                <img src="./assets/icon/log-out.svg" width="20"> Logout
             </li>
-          </ul>
+        </ul>
     </div>
 
-    
+
 </div>
+
+
+
+
+<ng-template #profileModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Profile</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form (ngSubmit)="onSubmitUser()" #userForm="ngForm">
+            <div class="form-group">
+                <label for="name">Phone Number</label>
+                <input type="text" class="form-control" readonly disabled value="{{phone}}">
+
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="userModel.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="power">Bank</label>
+                <select class="form-control" id="bank" required [(ngModel)]="userModel.bank" name="bank" #bank="ngModel">
+                    <option value="BCA">BCA</option>
+                    <option value="mandiri">mandiri</option>
+                    <option value="BRI">BRI</option>
+                    <option value="BNI">BNI</option>
+                    <option value="CIMB">CIMB</option>
+                </select>
+                <div [hidden]="bank.valid || bank.pristine" class="alert alert-danger">
+                    Bank is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="rek">Nomor Rekening</label>
+                <input type="text" class="form-control" id="rek" required [(ngModel)]="userModel.rek" name="rek" #rek="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Nomor Rekening is required
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="account"> Nama Pemilik Rekening </label>
+                <input type="text" class="form-control" id="account" required [(ngModel)]="userModel.account" name="account" #account="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Account name is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Email</label>
+                <input type="email" class="form-control" id="email"  [(ngModel)]="userModel.email" name="email" #email="ngModel" >
+                 
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block" [disabled]="!userForm.form.valid">Submit</button>
+        </form>
+
+    </div>
+
+</ng-template>
+
+
+
+<ng-template #passwordModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Password</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      
+        <form (ngSubmit)="onSubmitPass()" #userForm="ngForm"> 
+
+            <div class="form-group">
+                <label for="pass">Old Password</label>
+                <input type="password" class="form-control" id="pass" required [(ngModel)]="resetPassw.pass" name="pass" #pass="ngModel">
+                <div [hidden]="pass.valid || pass.pristine" class="alert alert-danger">
+                    Old Password is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="newPass1">New Password</label>
+                <input type="password" class="form-control" id="newPass1" required [(ngModel)]="resetPassw.newPass1" name="newPass1" #newPass1="ngModel">
+                <div [hidden]="newPass1.valid || newPass1.pristine" class="alert alert-danger">
+                    New Password is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="newPass2">New Password Confirm</label>
+                <input type="password" class="form-control" id="newPass2" required [(ngModel)]="resetPassw.newPass2" name="newPass2" #newPass2="ngModel">
+                <div [hidden]="newPass2.valid || newPass2.pristine" class="alert alert-danger">
+                    New Password Confirm is required
+                </div>
+            </div>
+
+            <div class="py-2 text-center">
+                {{note}}
+            </div>
+
+            <button type="submit" class="btn btn-warning btn-block" [disabled]="!userForm.form.valid">Submit</button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
 
 <app-tabs></app-tabs>
