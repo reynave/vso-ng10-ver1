@@ -34,3 +34,14 @@ header {
 .modal-dialog {
     margin: 0px;
 }
+
+.modal-body{
+    margin-bottom: 100px;
+}
+
+.modal-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: #fff;
+}

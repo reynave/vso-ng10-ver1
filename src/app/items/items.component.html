@@ -42,7 +42,7 @@
 
         <div class="col-6 mb-2" *ngFor="let x of items" (click)="open(modalItemDetail,x)">
             <div class="p-1">
-                <img src="https://dummyimage.com/600x400/f4f4f4/333333&text={{x.name}}" class="border shadow-sm" width="100%">
+                <img src="https://dummyimage.com/600x400/f4f4f4/000000&text={{x.name}}" class="border shadow-sm" width="100%">
                 <div><strong>{{x.name}}</strong></div>
                 <div>Start {{currency}} {{x.price[0].price | number}}</div>
             </div>
@@ -75,8 +75,9 @@
 
     <div class="modal-body">
         <div class="row">
-            <img src="https://dummyimage.com/600x400/f3f3f3/333333&text={{itemsDetail.name}}" width="100%">
+            <img src="https://dummyimage.com/600x400/f3f3f3/000000&text={{itemsDetail.name}}" width="100%">
 
+          
         </div>
         <div class="row">
             <div class="col-9">
@@ -86,11 +87,13 @@
                 <small>Qty</small>
             </div>
         </div>
-
+      
         <div class="row no-gutters " *ngFor="let x of itemsDetail.price; let i = index">
             <div class="col-9 border-bottom py-2">
                 <div>{{x.name}} </div>
-                <b>{{currency}} {{x.price | number}}</b> &nbsp; <a href="javascript:;" (click)="addNote()"><small class="ml-2">Add Notes</small></a>
+                <b>{{currency}} {{x.price | number}}</b> &nbsp; <a href="javascript:;" (click)="x.showNote = 1"><small class="ml-2">Add Notes</small></a>
+
+                <textarea [hidden]="x.showNote == '0'" class="form-control form-control-sm" [(ngModel)]="x.note" ></textarea>
             </div>
             <div class="col-3 border-bottom py-2">
                 <input type="number" [(ngModel)]="x.cart" class="form-control" required>

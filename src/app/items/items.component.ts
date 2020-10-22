@@ -52,6 +52,7 @@ export class ItemsComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(data => {
       this.spinner.hide();
+      console.log(data);
       this.brand = data['brand']; 
       this.items = data['items'];   
  
@@ -106,15 +107,17 @@ export class ItemsComponent implements OnInit {
 
   addToCart() {
     var total = 0;
+    
     this.itemsDetail.price.forEach(elm => {
-      total += parseInt(elm['cart'])
+      total += elm['cart'];
     });
-
-    if (total > 0) {
+   
+     if (total > 0) {
       this.http.post<any>(environment.api + "item/addToCart", this.itemsDetail, {
         headers: this.configService.headers()
       }).subscribe(
         data => { 
+          console.log(data);
           this.httpCart();
         }
       )
