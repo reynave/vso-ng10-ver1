@@ -5,14 +5,14 @@
 <form class="form-signin" (ngSubmit)="onSubmit()" #myForm="ngForm"> 
     <div class="text-center mb-4">
       
-        <small>By</small>
-        <img class="mb-4" src="https://www.centigradecoffees.com/assets/images/logo-dark.png" width="80%"> 
+        <small><b>By</b></small>
+        <img class="mb-4" src="./assets/logo.jpg" width="80%"> 
     </div>
 
     <div class="form-label-group">
         <input type="number" id="p" class="form-control" placeholder="Phone Number" required autofocus  
         [(ngModel)]="login.phone" name="phone" #phone="ngModel">
-        <label for="p">Phone Number with +62</label>
+        <label for="p">Phone Number regsitered by admin</label>
     </div>
 
     <div class="form-label-group">
@@ -25,9 +25,5 @@
     <button class="btn btn-lg btn-dark btn-block" type="submit" [disabled]="!myForm.form.valid" >Sign in</button>
 </form>
  
-<pre>
-    for Demo
-    phone : 123456789
-    password : 123456789
-</pre>
-<p class="mt-5 mb-3 text-muted text-center">&copy; ver 0.2 Beta</p>
+ 
+<p class="mt-5 mb-3 text-muted text-center">&copy; ver 1.0.0</p>

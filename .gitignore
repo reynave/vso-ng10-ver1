@@ -18,7 +18,8 @@ speed-measure-plugin*.json
 /.idea
 .project
 .classpath
-.android
+/android10
+/cordova714
 .c9/
 *.launch
 .settings/

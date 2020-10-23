@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api : "http://vso.centigradecoffees.com/api/"
+  api : "https://member.vsocentigrade.com/api/"
 };
