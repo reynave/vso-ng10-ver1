@@ -34,7 +34,7 @@ export class TransactionComponent implements OnInit {
 
   httpGet() {
     this.spinner.show();
-    this.http.get<any>(environment.api + 'transaction/', {
+    this.http.get<any>( environment.api + 'transaction/', {
       headers: this.configService.headers()
     }).subscribe(data => {
       this.spinner.hide();  

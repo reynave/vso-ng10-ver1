@@ -12,8 +12,7 @@
 
 
 <div *ngFor="let x of brand" class="mb-3 " [hidden]="brandId" (click)="onSelectBrand(x);">
-    <img src="https://dummyimage.com/600x200/f4f4f4/333333&text={{x.name}}" class="border shadow-sm" width="100%">
-    <div class="px-2">{{x.name}}</div>
+    <img [src]=" x.image ? x.image : 'https://dummyimage.com/600x200/f4f4f4/333333&text='+x.name" class="border shadow-sm" width="100%"> 
 </div>
 
 
@@ -32,17 +31,12 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
+ 
     <div class="row no-gutters">
 
         <div class="col-6 mb-2" *ngFor="let x of items" (click)="open(modalItemDetail,x)">
             <div class="p-1">
-                <img src="https://dummyimage.com/600x400/f4f4f4/000000&text={{x.name}}" class="border shadow-sm" width="100%">
+                <img [src]=" x.image ? folder+x.image : 'https://dummyimage.com/600x400/f4f4f4/333333&text='+x.name" class="border shadow-sm" width="100%">
                 <div><strong>{{x.name}}</strong></div>
                 <div>Start {{currency}} {{x.price[0].price | number}}</div>
             </div>
@@ -75,9 +69,12 @@
 
     <div class="modal-body">
         <div class="row">
-            <img src="https://dummyimage.com/600x400/f3f3f3/000000&text={{itemsDetail.name}}" width="100%">
+         
+            <img [src]=" itemsDetail.image ? folder+itemsDetail.image : 'https://dummyimage.com/600x400/f4f4f4/333333&text='+itemsDetail.name"   width="100%">
 
-          
+            <div class="col-12 py-2">
+                {{itemsDetail.description}}
+            </div>
         </div>
         <div class="row">
             <div class="col-9">
@@ -105,7 +102,7 @@
     </div>
     <div class="modal-footer">
 
-        <button type="button" class="btn btn-success btn-block" (click)="addToCart();">Add To Card</button>
+        <button type="button" class="btn btn-success btn-block" (click)="addToCart();">Add To Cart</button>
     </div>
 </ng-template>
 

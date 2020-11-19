@@ -16,7 +16,7 @@
 
 <div class="bg-light">
     <div class="px-3 py-2">
-        <b> Delivery To </b>
+        <b> Delivery To <span class="text-danger" title="Required">*</span></b>
     </div>
 </div>
 
@@ -29,7 +29,7 @@
                         <strong>{{customer.name}}</strong>
                         <div>
                             <small>
-                                {{customer.phone}}, , {{customer.email}} {{customer.address}}
+                                {{customer.phone}}  {{customer.email}} <br>{{customer.address}}
                             </small>
                         </div>
                     </div>
@@ -43,32 +43,37 @@
 
 
             <div [hidden]="!editCustomer">
-                <strong>Edit Customer</strong>
+                <strong>Input Customer</strong>
                 <form (ngSubmit)="onUpdateCustomer()" #myForm="ngForm">
-                    <div class="form-group">
-                        <label for="h1">Phone*</label>
-                        <input type="tel" class="form-control" id="h1" required [(ngModel)]="customer.phone" name="phone" #phone="ngModel" (change)="onAutoCustomer();">
-                    </div>
 
-
-
+                    
                     <div class="form-group">
                         <label for="h2">Name*</label>
-                        <input type="text" class="form-control" id="name" required [(ngModel)]="customer.name" name="name" #name="ngModel">
+                        <input type="text" class="form-control" id="name" required [(ngModel)]="customer.name" name="name" #name="ngModel"  (change)="onAutoCustomer();">
                     </div>
 
+
+                    <div class="form-group">
+                        <label for="h1">Phone <small>Optional</small></label>
+                        <input type="tel" class="form-control" id="h1"  [(ngModel)]="customer.phone" name="phone" >
+                    </div>
+ 
                     <div class="form-group">
                         <label for="h3">Email <small>Optional</small></label>
-                        <input type="email" class="form-control" id="email" [(ngModel)]="customer.email" name="email" #email="ngModel">
+                        <input type="email" class="form-control" id="email" [(ngModel)]="customer.email" name="email">
                     </div>
 
                     <div class="form-group">
-                        <label for="h4">Address*</label>
-                        <textarea id="h4" required class="form-control" [(ngModel)]="customer.address" name="address" #address="ngModel"></textarea>
+                        <label for="h4">Address <small>Optional</small></label>
+                        <textarea id="h4" class="form-control" [(ngModel)]="customer.address" name="address"></textarea>
                     </div>
 
+
                     <div class="form-group">
-                        <button type="button" class="btn btn-block btn-success" type="submit" [disabled]="!myForm.form.valid"> Save </button>
+                       <div class="py-2 text-center" >
+                        <small [hidden]="!checkName">Please wait, checking database...</small>
+                       </div>
+                        <button type="button" class="btn btn-block btn-success" type="submit" [disabled]="!myForm.form.valid">  Save </button>
                     </div>
                 </form>
             </div>
@@ -85,7 +90,7 @@
 
 <div class="bg-light">
     <div class="px-3 py-2">
-        <b> Location Outlet</b>
+        <b> Location Outlet <span class="text-danger" title="Required">*</span> </b>
     </div>
 </div>
 
@@ -100,6 +105,21 @@
 </div>
 
 
+<div class="bg-light">
+    <div class="px-3 py-2">
+        <b> Pick Up  <span class="text-danger" title="Required">*</span> </b>
+    </div>
+</div>
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-12">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="pickup" placeholder="Instant Driver, Etc" required>
+            
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -110,17 +130,20 @@
 </div>
 
 <div class="container-fluid mb-7">
-    <div class="row  py-2 border-bottom" *ngFor="let x of cart; let i = index" (click)="open(content,x)">
+    <div class="row no-gutters  py-2 border-bottom" *ngFor="let x of cart; let i = index" (click)="open(content,x)">
         <div class="col-2">
             <div class="alert border p-1 text-center line-height-sm">
                 {{x.qty}}x
             </div>
         </div>
         <div class="col-7">
-            <div class="line-height-sm">{{x.name}} {{x.size}}</div>
-            <div class="py-1 line-height-sm">
-                <small>{{x.note}}</small>
+            <div class="px-2">
+                <div class="line-height-sm">{{x.name}} {{x.size}}</div>
+                <div class="py-1 line-height-sm">
+                    <small>{{x.note}}</small>
+                </div>
             </div>
+           
         </div>
         <div class="col-3 text-right line-height-sm">
             {{x.total | number }}

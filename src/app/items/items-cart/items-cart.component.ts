@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class Customer {
 
   constructor(
+    public id: string,
     public phone: string,
     public name: string,
     public address: string,
@@ -38,6 +39,7 @@ export class ItemsCartComponent implements OnInit {
   total: number = 0;
   cart: any = [];
   itemDetail: any = [];
+  pickup:string = "";
   customer: any = {
     phone: "",
     name: "",
@@ -63,8 +65,10 @@ export class ItemsCartComponent implements OnInit {
     this.http.get<any>(environment.api + 'cart/', {
       headers: this.configService.headers()
     }).subscribe(data => {
+      console.log(data);
       this.spinner.hide();
       this.selectBranches = data['branches'];
+     
       this.updateArray(data);
     }, error => {
       console.log(error);
@@ -82,9 +86,9 @@ export class ItemsCartComponent implements OnInit {
     this.transactionCode = data['transactionCode'];
     if (this.customer === null || this.customer == "") {
       this.editCustomer = true;
-      this.customer = new Customer(null, null, null, null);
+      this.customer = new Customer(null, null, null, null, null);
     } else {
-      this.customer = new Customer(this.customer['phone'], this.customer['name'], this.customer['address'], this.customer['email']);
+      this.customer = new Customer(this.customer['id'],this.customer['phone'], this.customer['name'], this.customer['address'], this.customer['email']);
     }
   }
 
@@ -103,6 +107,7 @@ export class ItemsCartComponent implements OnInit {
   }
 
   onUpdateCustomer() {
+
     this.http.post<any>(environment.api + "cart/onUpdateCustomer/", this.customer, {
       headers: this.configService.headers()
     }).subscribe(
@@ -125,12 +130,17 @@ export class ItemsCartComponent implements OnInit {
 
     if (this.transaction['branchesId'] === null) {
       alert("Please select outlet location!");
-    } else { 
+    }
+    else if (this.pickup == "") {
+      alert("Please input pickup location!");
+    }
+    else { 
 
       this.spinner.show();
       console.log(this.transactionCode)
       const body = {
-        transactionCode: this.transactionCode
+        transactionCode: this.transactionCode,
+        pickup:this.pickup
       }
       this.http.post<any>(environment.api + "cart/onSubmit/", body, {
         headers: this.configService.headers()
@@ -147,19 +157,24 @@ export class ItemsCartComponent implements OnInit {
     }
 
   }
-
+  userId: string;
+  checkName : boolean = false;
   onAutoCustomer() {
     this.spinner.show();
-    console.log('onAutoCustomer phone :' + this.customer['phone']);
+    this.checkName = true;
+    console.log('onAutoCustomer name :' + this.customer['name']);
     const body = {
-      phone: this.customer['phone'],
+      name: this.customer['name'],
     }
     this.http.post<any>(environment.api + "cart/onAutoCustomer/", body, {
       headers: this.configService.headers()
     }).subscribe(
       data => {
+        this.checkName = false;
+        console.log(data);
         this.spinner.hide();
-        if (data['name'] !== null) this.customer['name'] = data['name'];
+        this.userId = data['id'];
+        if (data['phone'] !== null) this.customer['phone'] = data['phone'];
         if (data['address'] !== null) this.customer['address'] = data['address'];
         if (data['email'] !== null) this.customer['email'] = data['email'];
      

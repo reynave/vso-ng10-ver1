@@ -10,8 +10,8 @@
     <tbody>
         <tr *ngFor="let x of weekly">
             <td class="line-height-sm">
-                <div> Week {{x.weekly}}  <span [hidden]="!x.paid" class="badge badge-primary">PAID {{x.inputDate | date}} </span> </div>
-                <div><small>Total Order {{x.qty}} Cup = Rp {{x.price | number}}</small> </div>
+                <div> Week {{x.weeklyLabel}}  <span [hidden]="!x.paid" class="badge badge-primary">PAID {{x.inputDate | date}} </span> </div>
+                <div><small>Total qty {{x.qty}}  = Rp {{x.price | number}}</small> </div>
             </td>
             <td class="text-right line-height-sm"> {{x.paid | number}}</td>
         </tr> 

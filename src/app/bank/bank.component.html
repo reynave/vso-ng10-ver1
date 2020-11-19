@@ -5,26 +5,17 @@
     <div class="py-3 text-center">
 
         <p><strong>Rekening Transaksi</strong></p>
-        <h4 > BCA No. 622 068 6688</h4>
-        <strong>CV Triputra Maxima Sejahtera</strong>
+        <h4 > {{items['bank']}}</h4>
+        <strong>  {{items['pt']}} </strong>
 
        
-        <input type="text" value="BCA No. 622 068 6688, CV Triputra Maxima Sejahtera" class="copy" readonly id="bank">
+        <input type="text" value="{{items['bank']}}, {{items['pt']}}" class="copy" readonly id="bank">
 
         <button type="button" (click)="copas();" class="btn btn-outline-primary btn-sm m-3">Copy to clipboard</button>
     </div>
   
 
-    <div class="p-3 text-center">
-
-        <b>WA Central Admin</b><br>
-        0811 - 8123 - 989 Tami<br>
-        0811 - 8123 - 991 Nancy<br><br>
-
-        <b>Info Franchise</b><br>
-        0812 – 1898 – 1948 Agung Purnomo<br>
-
-    </div>
+    <div class="p-3 text-center" [innerHTML]="items['info']"> </div>
 </div>
 
 <app-tabs></app-tabs>

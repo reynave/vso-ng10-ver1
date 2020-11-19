@@ -20,10 +20,11 @@ export class ConfigService {
 
 
   headers() {   
+    console.log(this.token());
     return this.varHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Key': this.varKey,
-      'Token': this.token(),
+      'key': this.varKey,
+      'token': this.token(),
     });
   }
 

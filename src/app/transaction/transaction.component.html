@@ -5,32 +5,36 @@
 
 
 
-<div class="bg-light px-1 mb-2 pointer" (click)="open(content,x)" *ngFor="let x of transaction">
+
+<div class="bg-white border rounded shadow-sm mx-2 p-1 mb-2 pointer" (click)="open(content,x)" *ngFor="let x of transaction">
     <div class="row no-gutters">
-        <div class="col-10 ">
-            <div class="p-2">
-             
-                <strong>{{x.brand}}</strong>
-                <div class="line-height-sm">
-                    <small><b> {{x.customer.name}}, {{x.customer.phone}}</b></small> 
-                    <div class="cut-text">
-                        <small> {{x.customer.address}}</small>
-                    </div>
-                    <code class="text-success">{{x.status}} </code> 
-                </div>
+        <div class="col-6 ">
+            <div class="px-2">
+                <strong>Order Id : {{x.transactionCode}} </strong>
 
             </div>
         </div>
-        <div class="col-2">
-            <div class="py-2">
-                {{x.transactionDate | date:'d MMM'}}
+        <div class="col-6 text-right">
+            <div class="px-2">
+                <small>{{x.transactionDate | date:'MMM d, y, h:mm a'}}</small>
             </div>
+        </div>
+
+        <div class="col-12 ">
+
+            <div class="line-height-sm px-2">
+                <small>{{x.brand}}, {{x.customer.name}}</small>
+                <div class="cut-text">
+                    <small> {{x.customer.address}}</small>
+                </div>
+                <small><code class="text-success">{{x.status}} </code></small>
+            </div>
+
         </div>
     </div>
 
 </div>
 
- 
 <div class="mb-6"></div>
 
 <app-tabs></app-tabs>
@@ -48,7 +52,7 @@
 
         <div class="bg-light">
             <div class="px-3 py-2">
-                <b> Delivery To </b>
+                <b> Delivery To :</b>
             </div>
         </div>
         <div class="px-3 py-1 mb-3">
@@ -60,35 +64,46 @@
             </div>
         </div>
 
- 
+
         <div class="bg-light">
             <div class="px-3 py-2">
-                <b> Brand & Outlet Location </b>
+                <b> Brand & Outlet Location :</b>
             </div>
         </div>
-        <div class="px-3 py-1 mb-3"> 
+        <div class="px-3 py-1 mb-3">
             <div>
-               {{item.brand}}, {{item.location}}
+                {{item.brand}}, {{item.location}}
             </div>
-        </div> 
+        </div>
+
+        <div class="bg-light">
+            <div class="px-3 py-2">
+                <b> Pick Up :</b>
+            </div>
+        </div>
+        <div class="px-3 py-1 mb-3">
+            <div>
+                {{item.pickup}}
+            </div>
+        </div>
 
 
         <div class="bg-light">
             <div class="px-3 py-2">
-                <b> Order Summary </b>
+                <b> Order Summary :</b>
             </div>
         </div>
-        <div class="px-3 py-1 mb-3"> 
-            <div class="row  no-gutters border-bottom py-1" *ngFor="let x of item.cart" >
+        <div class="px-3 py-1 mb-3">
+            <div class="row  no-gutters border-bottom py-1" *ngFor="let x of item.cart">
                 <div class="col-2">
                     <div class="alert border p-1 text-center line-height-sm mr-1">
-                       {{x.qty}}x
+                        {{x.qty}}x
                     </div>
                 </div>
                 <div class="col-7">
-                    <div class="line-height-sm">{{x.name}}  </div>
+                    <div class="line-height-sm">{{x.name}} </div>
                     <div class="py-1 line-height-sm">
-                        <small> {{x.size}}.  Rp {{x.price | number}}</small>
+                        <small> {{x.size}}. Rp {{x.price | number}}</small>
                     </div>
 
                     <small>
@@ -96,13 +111,13 @@
                     </small>
                 </div>
                 <div class="col-3 text-right line-height-sm">
-                   {{x.total | number}}
+                    {{x.total | number}}
                 </div>
-        
+
             </div>
-    
-        </div> 
-        
+
+        </div>
+
 
     </div>
 
@@ -111,7 +126,7 @@
             <div class="col pb-2">
                 <div class="badge badge-{{item.statusColor}} mr-2">{{item.status}}</div>
             </div>
-       
+
             <div class="col text-right pb-2">Total <strong>Rp {{item.total | number}}</strong></div>
         </div>
         <button type="button" class="btn btn-outline-dark btn-block" (click)="modal.close('Save click')">Closed</button>

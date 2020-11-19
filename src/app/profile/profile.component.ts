@@ -13,7 +13,7 @@ export class User {
     public bank: string,
     public rek: string,
     public account: string,
-    
+
   ) { }
 }
 
@@ -99,24 +99,24 @@ export class ProfileComponent implements OnInit {
 
 
   }
-  note:string;
+  note: string;
   onSubmitPass() {
     const body = {
-      oldPass:  Md5.init(this.resetPassw['pass']),
+      oldPass: Md5.init(this.resetPassw['pass']),
       pass1: Md5.init(this.resetPassw['newPass1']),
-      pass2:  Md5.init(this.resetPassw['newPass2']),
+      pass2: Md5.init(this.resetPassw['newPass2']),
     }
 
-    if (this.oldPass != Md5.init(this.resetPassw['pass'])) { 
+    if (this.oldPass != Md5.init(this.resetPassw['pass'])) {
       this.note = "Password lama tidak match";
     }
-    else if(  body['pass1'] != body['pass2'] ){
+    else if (body['pass1'] != body['pass2']) {
       this.note = "Password tidak match";
 
     }
     else {
       this.spinner.show();
-      this.http.post<any>(environment.api + "user/onSubmitPass",  body, {
+      this.http.post<any>(environment.api + "user/onSubmitPass", body, {
         headers: this.configService.headers()
       }).subscribe(
         data => {
@@ -145,7 +145,9 @@ export class ProfileComponent implements OnInit {
       data => {
         console.log(data);
         this.configService.removeToken();
-        window.location.href = '/';
+        //  window.location.href = '/';
+        //  this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+        this.router.navigate(['/']);
 
       },
       error => {

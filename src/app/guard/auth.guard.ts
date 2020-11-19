@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     private configService: ConfigService,
     private router: Router
   ) {
-    console.log('token : '+this.configService.token());
+    //console.log('token : '+this.configService.token());
 
    }
 

@@ -17,7 +17,7 @@ export class ItemsComponent implements OnInit {
     console.log('Back button pressed');
     this.modalService.dismissAll();
   }
-
+  folder : string = environment.folder;
   brand: any = [];
   data: any = [];
   brandId: string;;
